@@ -21,7 +21,8 @@ const Navbar = () => {
   ] // js array of objects
 
   return (
-    <nav className='bg-white md:px-14 p-4 max-w-screen-2xl mx-auto text-primary'>
+    <>
+    <nav className='bg-white md:px-14 p-4 max-w-screen-2xl mx-auto text-primary fixed top-0 right-0 left-0'>
       <div className='text-lg container mx-auto flex justify-between items-center font-medium'>
         <div className='flex space-x-14 items-center'>
         <a className='text-2xl font-semibold flex items-center space-x-3 text-primary' href="/">
@@ -42,7 +43,7 @@ const Navbar = () => {
 
         {/* Menu btn, only display on Mobile */}
         <div className="md:hidden">
-          <button onClick={toggleMenu} className='text-primary focus:outline-none focus:text-gray-300'>
+          <button onClick={toggleMenu} className='text-primary focus:outline-none focus:text-gray-300 text-lg'>
             {
                 isMenuOpen ?  (<FaXmark className='w-5 h-6 text-primary'/>): (<FaBars/>)
             }
@@ -50,6 +51,12 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
+    <div className={`space-y-4 px-4 pt-24 pb-5 bg-secondary ${isMenuOpen ? "block fixed top-0 right-0 left-0" : "hidden"}`}>
+      {
+        navItems.map(({link, path}) => <a key={link} href={path} className='block hover:text-gray-300'>{link}</a>)
+        }  
+    </div>
+    </>
   )
 }
 
