@@ -33,7 +33,6 @@ const Navbar = () => {
         <ul className='hidden md:flex space-x-12'>
           {
             navItems.map(({link, path}) => <Link activeClass='active' to={path} spy={true} smooth={true} offset={-200}  key={link} href={path} className='block hover:text-gray-300'
-            onClick={toggleMenu}
             >{link}</Link>)
           }
         </ul>
