@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import Reddot from '../assets/reddot.svg'
-import Greendot from '../assets/greendot.png'
 
 const Pricing = () => {
 
@@ -13,7 +11,7 @@ const Pricing = () => {
   ]
 
   return (
-    <div className='md:px-14 p-4 max-w-s mx-auto py-10'>
+    <div className='md:px-14 p-4 max-w-s mx-auto py-10' id='pricing'>
       <div className='text-center'>
         <h2 className='md:text-5xl text-3xl font-extrabold text-primary mb-2'>Here are all our plans</h2>
         <p className='text-tertiary md:w-1/3 mx-auto px-4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem architecto perspiciatis, ipsum dolor hic quisquam neque ipsa eum optio beatae nostrum minima. Minus, dolorem officia voluptatibus sequi esse rem sunt.</p>

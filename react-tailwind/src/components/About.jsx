@@ -3,7 +3,7 @@ import img5 from '../assets/img5.svg';
 
 const About = () => {
     return (
-        <div className="md:px-14 p-4 max-w-s mx-auto">
+        <div className="md:px-14 p-4 max-w-s mx-auto" id="about">
             <div className='flex flex-col md:flex-row justify-between items-center gap-4'>
                 <div className='md:w-[1/2]'>
                     <img src={img4} alt="Aboutimg1" />

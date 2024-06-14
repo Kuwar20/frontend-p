@@ -3,7 +3,7 @@ import logo from '../assets/logo.png'
 import { MdLanguage } from "react-icons/md";
 import { FaXmark } from "react-icons/fa6";
 import { FaBars } from "react-icons/fa";
-
+import {Link} from 'react-scroll';
 
 const Navbar = () => {
 
@@ -32,7 +32,9 @@ const Navbar = () => {
         {/* Nav Items */} {/* hide the navbar content using hidden */}
         <ul className='hidden md:flex space-x-12'>
           {
-            navItems.map(({link, path}) => <a key={link} href={path} className='block hover:text-gray-300'>{link}</a>)
+            navItems.map(({link, path}) => <Link activeClass='active' to={path} spy={true} smooth={true} offset={-200}  key={link} href={path} className='block hover:text-gray-300'
+            onClick={toggleMenu}
+            >{link}</Link>)
           }
         </ul>
         </div>
@@ -53,7 +55,7 @@ const Navbar = () => {
     </nav>
     <div className={`space-y-4 px-4 pt-24 pb-5 bg-secondary ${isMenuOpen ? "block fixed top-0 right-0 left-0" : "hidden"}`}>
       {
-        navItems.map(({link, path}) => <a key={link} href={path} className='block hover:text-gray-300'>{link}</a>)
+        navItems.map(({link, path}) => <Link activeClass='active' to={path} spy={true} smooth={true} offset={-300}  key={link} href={path} className='block hover:text-gray-300'>{link}</Link>)
         }  
     </div>
     </>
