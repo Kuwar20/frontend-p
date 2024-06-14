@@ -5,6 +5,7 @@ import Home from './components/Home'
 import Navbar from './components/Navbar'
 import Newsletter from './components/Newsletter'
 import Pricing from './components/Pricing'
+import Footer from './shared/Footer'
 function App() {
 
   return (
@@ -15,6 +16,7 @@ function App() {
       <About />
       <Pricing />
       <Newsletter />
+      <Footer />
     </>
   )
 }
