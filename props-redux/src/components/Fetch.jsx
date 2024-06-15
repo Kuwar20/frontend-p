@@ -9,6 +9,7 @@ const Fetch = () => {
         console.log(response.data)
         setData(response.data)
     }
+    
     return (
         <>
             {/* call an api and show its result */}
