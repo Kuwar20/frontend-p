@@ -2,12 +2,23 @@ import axios from 'axios'
 import React, { useState } from 'react'
 
 const Fetch = () => {
-    const [data, setData] = useState([]);
+    const [data1, setData] = useState([]);
 
     const fetchfn = async () => {
         const response = await axios.get('https://api.restful-api.dev/objects')
         console.log(response.data)
         setData(response.data)
+    }
+
+    const sendData = async () => {
+        const response = await axios.post('https://api.restful-api.dev/objects',{
+            name: 'sagar',
+            data: {
+                color: 'red',
+                capacity: 100
+            }
+        })
+        console.log("Data sent successfully", response.data);
     }
     
     return (
@@ -15,7 +26,7 @@ const Fetch = () => {
             {/* call an api and show its result */}
             <button onClick={fetchfn}>Fetch data</button>
             {
-                data.map((item, index) => {
+                data1.map((item, index) => {
                     return (
                         <div key={index}>
                             <p>Name:{item.name}</p>
@@ -29,6 +40,7 @@ const Fetch = () => {
                     )
                 })
             }
+            <button onClick={sendData}>Send data</button>
         </>
     )
 }
