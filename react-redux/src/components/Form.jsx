@@ -14,11 +14,14 @@ const Form = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(users);
+
+        // dispatch sends data to the createAsyncThunk middleware in userDetailSlice, and API call is made there
         dispatch(createUser(users));
     };
 
     return (
         <div>
+            <h2 className='my-2'>Fill the Form</h2>
             <form className='w-50 mx-auto my-5' onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label for="exampleInputEmail1" className="form-label">Email</label>
