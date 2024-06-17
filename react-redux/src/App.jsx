@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Form from './components/Form'
 import Navbar from './components/Navbar'
 import NotFoundPage from './Pages/NotFoundpage'
+import Read from './components/Read'
 
 function App() {
 
@@ -12,7 +13,8 @@ function App() {
         <BrowserRouter>
           <Navbar />
           <Routes>
-            <Route exact path='/' element={<Form />} />
+            <Route path='/' element={<Form />} />
+            <Route path='/read' element={<Read />} />
             <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
