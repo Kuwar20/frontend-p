@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { showUser } from '../features/userDetailSlice';
+import { deleteUser, showUser } from '../features/userDetailSlice';
 import CustomModel from './CustomModel';
+import { Link } from 'react-router-dom';
 
 const Read = () => {
   const dispatch = useDispatch();
@@ -31,8 +32,8 @@ const Read = () => {
               <h6 className="card-subtitle mb-2 text-muted">{element.email}</h6>
               <p className="card-text">{element.gender}</p>
               <button className="card-link" onClick={() => [setId(element.id), setShowPopup(true)]}>View</button>
-              <a href="#" className="card-link">Edit</a>
-              <a href="#" className="card-link">Delete</a>
+              <Link href="#" className="card-link">Edit</Link>
+              <Link onClick={()=>dispatch(deleteUser(element.id))} className="card-link">Delete</Link>
             </div>
           </div>
         ))}
