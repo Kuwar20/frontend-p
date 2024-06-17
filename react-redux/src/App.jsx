@@ -1,7 +1,8 @@
 import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Form from './components/Form'
 import Navbar from './components/Navbar'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import NotFoundPage from './Pages/NotFoundpage'
 
 function App() {
 
@@ -11,7 +12,8 @@ function App() {
         <BrowserRouter>
           <Navbar />
           <Routes>
-            <Route path='/' element={<Form />} />
+            <Route exact path='/' element={<Form />} />
+            <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
       </div>
