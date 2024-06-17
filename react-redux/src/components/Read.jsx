@@ -11,6 +11,7 @@ const Read = () => {
   const [showPopup, setShowPopup] = useState(false);
 
   const { users, loading } = useSelector((state) => state.app);
+  const {searchData} = useSelector((state) => state.app);
 
   useEffect(() => {
     dispatch(showUser())
@@ -25,7 +26,17 @@ const Read = () => {
       {showPopup && <CustomModel id={id} showPopup={showPopup} setShowPopup={setShowPopup} />}
       <h2>All Data</h2>
       <div>
-        {users && users.map((element) => (
+        {users && 
+        users.filter((element)=>{
+          if(searchData.length === 0){
+            return element
+          }else {
+            return (element.name
+              .toLowerCase()
+              .includes(searchData.toLowerCase()))
+          }
+        })
+        .map((element) => (
           <div key={element.id} className="card w-50 mx-auto my-2">
             <div className="card-body">
               <h5 className="card-title">{element.name}</h5>
