@@ -18,6 +18,20 @@ export const createUser = createAsyncThunk("createUser", async (data, { rejectWi
     }
 });
 
+// read action
+// this will return promise, and we will handle it in extraReducers
+export const showUser = createAsyncThunk("showUser", async (args, {rejectWithValue}) => {
+    const response = await fetch("https://666fc0fe0900b5f872481dcc.mockapi.io/crud");
+    // by default fetch is a get request so dont need to write it, even though you can
+    try {
+        const result = await response.json();
+        console.log(result);
+        return result;
+    } catch (error) {
+        return rejectWithValue(error.response)
+    }
+})
+
 export const userDetail = createSlice({
     name: "userDetail",
     initialState: {
@@ -36,6 +50,17 @@ export const userDetail = createSlice({
                 state.users.push(action.payload);
             })
             .addCase(createUser.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(showUser.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(showUser.fulfilled, (state, action) => {
+                state.loading = false;
+                state.users = action.payload;
+            })
+            .addCase(showUser.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });
