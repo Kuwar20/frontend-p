@@ -32,7 +32,7 @@ const Read = () => {
               <h6 className="card-subtitle mb-2 text-muted">{element.email}</h6>
               <p className="card-text">{element.gender}</p>
               <button className="card-link" onClick={() => [setId(element.id), setShowPopup(true)]}>View</button>
-              <Link href="#" className="card-link">Edit</Link>
+              <Link to={`/update/${element.id}`} className="card-link">Edit</Link>
               <Link onClick={()=>dispatch(deleteUser(element.id))} className="card-link">Delete</Link>
             </div>
           </div>

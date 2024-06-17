@@ -4,6 +4,7 @@ import Form from './components/Form'
 import Navbar from './components/Navbar'
 import NotFoundPage from './Pages/NotFoundpage'
 import Read from './components/Read'
+import Update from './components/Update'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Form />} />
             <Route path='/read' element={<Read />} />
+            <Route path='/update/:id' element={<Update />} />
             <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>

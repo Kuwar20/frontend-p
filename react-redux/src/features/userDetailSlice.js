@@ -20,7 +20,7 @@ export const createUser = createAsyncThunk("createUser", async (data, { rejectWi
 
 // read action
 // this will return promise, and we will handle it in extraReducers
-export const showUser = createAsyncThunk("showUser", async (args, {rejectWithValue}) => {
+export const showUser = createAsyncThunk("showUser", async (args, { rejectWithValue }) => {
     const response = await fetch("https://666fc0fe0900b5f872481dcc.mockapi.io/crud");
     // by default fetch is a get request so dont need to write it, even though you can
     try {
@@ -36,6 +36,24 @@ export const showUser = createAsyncThunk("showUser", async (args, {rejectWithVal
 export const deleteUser = createAsyncThunk("deleteUser", async (id, { rejectWithValue }) => {
     const response = await fetch(`https://666fc0fe0900b5f872481dcc.mockapi.io/crud/${id}`, {
         method: "DELETE"
+    });
+
+    try {
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        return rejectWithValue(error.response);
+    }
+});
+
+export const updateData = createAsyncThunk("updateData", async (data, { rejectWithValue }) => {
+    console.log("updated data", data);
+    const response = await fetch(`https://666fc0fe0900b5f872481dcc.mockapi.io/crud/${data.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
     });
 
     try {
@@ -86,6 +104,22 @@ export const userDetail = createSlice({
                 state.users = state.users.filter((user) => user.id !== action.payload.id);
             })
             .addCase(deleteUser.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(updateData.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(updateData.fulfilled, (state, action) => {
+                state.loading = false;
+                state.users = state.users.map((user) => {
+                    if (user.id === action.payload.id) {
+                        return action.payload;
+                    }
+                    return user;
+                });
+            })
+            .addCase(updateData.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });
