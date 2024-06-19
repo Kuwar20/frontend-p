@@ -1,7 +1,7 @@
 import React from 'react'
 import LogoImg from '../../assets/common/logo.png'
 import { menulists } from '../../assets/data/data'
-import { CustomLink } from './CustomComponents'
+import { Badges, CustomLink } from './CustomComponents'
 import { IoCartOutline, IoSearch } from 'react-icons/io5'
 
 const Header = () => {
@@ -23,15 +23,18 @@ const Header = () => {
             </div>
           </div>
           <div className='flex items-center gap-8 icons'>
-              <div className='uppercase hidden lg:block text-inherit relative z-20'>
-                <CustomLink>Login</CustomLink>
-                <span className=''>/</span>
-                <CustomLink>Register</CustomLink>
+            <div className='uppercase hidden lg:block text-inherit relative z-20'>
+              <CustomLink>Login</CustomLink>
+              <span className=''>/</span>
+              <CustomLink>Register</CustomLink>
+            </div>
+            <div className='icon flex items-center justify-center gap-6'>
+              <IoSearch className='text-2xl' />
+              <IoCartOutline className='text-2xl' />
+              <div className='absolute top-2 right-1.5'>
+                <Badges color='bg-primary-green'>0</Badges>
               </div>
-              <div className='icon flex items-center justify-center gap-6'>
-                <IoSearch className='text-2xl' />
-                <IoCartOutline className='text-2xl' />
-              </div>
+            </div>
           </div>
         </nav>
       </header>
