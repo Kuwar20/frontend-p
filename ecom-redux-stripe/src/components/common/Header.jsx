@@ -1,7 +1,7 @@
 import React from 'react'
 import LogoImg from '../../assets/common/logo.png'
 import { menulists } from '../../assets/data/data'
-import { Badges, CustomLink } from './CustomComponents'
+import { Badges, CustomLink, CustomNavLink } from './CustomComponents'
 import { IoCartOutline, IoSearch } from 'react-icons/io5'
 
 const Header = () => {
@@ -16,11 +16,12 @@ const Header = () => {
             <div className='hidden lg:flex items-center justify-between gap-8'>
               {menulists.map((menuItem) => (
                 <li key={menuItem.id} className='uppercase list-none'>
-                  <a href={menuItem.path}>{menuItem.link}</a>
+                  <CustomNavLink href={menuItem.path}>{menuItem.link}</CustomNavLink>
                 </li>
               ))
               }
             </div>
+
           </div>
           <div className='flex items-center gap-8 icons'>
             <div className='uppercase hidden lg:block text-inherit relative z-20'>
