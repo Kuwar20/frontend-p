@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteUser, showUser } from '../features/userDetailSlice';
 import CustomModel from './CustomModel';
-import { Link } from 'react-router-dom';
 
 const Read = () => {
   const dispatch = useDispatch();
