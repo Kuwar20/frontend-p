@@ -117,8 +117,6 @@ const Navbar = () => {
         { to: '/read', label: `All Post ${allusers.length}, Render ${(Math.random() * 100).toFixed()}` }
     ], [allusers.length]);
 
-    console.log("Navbar rendered");
-
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
