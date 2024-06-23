@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
   const [firstName, setFirstName] = useState('');
@@ -59,6 +60,7 @@ const Signup = () => {
           />
         </div>
         <button type="submit" className="w-full py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Submit</button>
+        <Link to="/login" className="text-center underline mt-4 block w-full max-w-md md:w-3/4 lg:w-1/2 hover:text-green-500">Already have an account? Login</Link>
       </form>
     </div>
   );
