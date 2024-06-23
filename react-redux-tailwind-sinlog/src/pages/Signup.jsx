@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
+
+const notify = () => toast.success('Form Filled Successfully!')
+const notifyError = () => toast.error('All Fields are required')
 
 const Signup = () => {
   const [firstName, setFirstName] = useState('');
@@ -9,6 +13,11 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!firstName || !lastName || !email || !password) {
+      notifyError();
+      return;
+    }
+    notify();
     console.log('First Name:', firstName);
     console.log('Last Name:', lastName);
     console.log('Email:', email);
@@ -60,6 +69,7 @@ const Signup = () => {
           />
         </div>
         <button type="submit" className="w-full py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Submit</button>
+        <Toaster />
         <Link to="/login" className="text-center underline mt-4 block w-full max-w-md md:w-3/4 lg:w-1/2 hover:text-green-500">Already have an account? Login</Link>
       </form>
     </div>
