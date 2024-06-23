@@ -43,7 +43,7 @@ const Login = () => {
           />
         </div>
 
-        <button type="submit" className=' mb-4 mt-4 w-full bg-green-600 py-3 rounded-md hover:bg-green-400 font-bold text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'>Login</button>
+        <button type="submit" className=' mb-4 mt-4 w-full bg-green-600 py-3 rounded-md hover:bg-green-700 font-bold text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'>Login</button>
         <Toaster />
         <Link to="/signup" className='text-center underline mt-4 block w-full max-w-md md:w-3/4 lg:w-1/2 hover:text-blue-500'>Don't have an account? Register</Link>
       </form>
