@@ -25,7 +25,7 @@ const Login = () => {
       <form onSubmit={handleSubmit} className='bg-white p-8 rounded-lg shadow-md w-full max-w-md md:w-3/4 lg:w-1/2'>
         <h1 className='text-center text-2xl font-bold mb-6'>Login</h1>
         <div className='mb-4'>
-          <label className='block text-gray-700 font-bold mb-2'>Email</label>
+          <label className='block text-gray-700 font-bold mb-2'>Email:</label>
           <input type="email"
             placeholder='Email'
             value={email}
@@ -34,7 +34,7 @@ const Login = () => {
           />
         </div>
         <div className='mb-4'>
-          <label className='block text-gray-700 font-bold mb-2'>Password</label>
+          <label className='block text-gray-700 font-bold mb-2'>Password:</label>
           <input type="password"
             placeholder='Password'
             value={password}
