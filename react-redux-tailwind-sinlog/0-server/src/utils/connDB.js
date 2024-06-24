@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 export const connectDB = () => {
-    mongoose.connect('mongodb://localhost:27017/sinlog-15');
+    mongoose.connect(process.env.MONGODB_URI);
 
     // Test connection
     // const CollectionName = mongoose.model('CollectionName', { name: String, email:String, date: { type: Date, default: Date.now }});
