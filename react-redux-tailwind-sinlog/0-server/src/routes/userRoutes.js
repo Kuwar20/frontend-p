@@ -3,6 +3,7 @@ const router = express.Router();
 import User from "../models/users.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import authenticateToken from "../middlewares/auth.js";
 
 const JWT_SECRET= 'secret';
 
@@ -52,7 +53,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.delete('/delete', async (req, res) => {
+router.delete('/delete', authenticateToken, async (req, res) => {
     const { email } = req.body;
     if(!email){
         return res.status(400).json({ message: 'Email is required' });
