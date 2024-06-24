@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,9 +12,9 @@ const Navbar = () => {
           <a className='hover:text-slate-600'>Brand Name</a>
         </div>
         <div className='hidden md:flex space-x-5 ml-14'>
-          <a href="/" className='hover:text-slate-600'>Home</a>
-          <a href="/login" className='hover:text-slate-600'>Login</a>
-          <a href="/signup" className='hover:text-slate-600'>Signup</a>
+          <Link to="/" className='hover:text-slate-600'>Home</Link>
+          <Link to="/login" className='hover:text-slate-600'>Login</Link>
+          <Link to="/signup" className='hover:text-slate-600'>Signup</Link>
         </div>
         <div className='hidden md:flex ml-auto'>
           <button className='p-1 py-1.5 px-3 bg-blue-500 rounded text-white hover:bg-blue-600'>Signout</button>
