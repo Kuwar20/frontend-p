@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { logout } from '../features/userDataSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.app.user?.user);
+  const userEmail = useSelector((state) => state.app.user?.user?.email);
+  const userFirstname = useSelector((state) => state.app.user?.user?.firstname);
 
   return (
     <nav className='bg-slate-400 p-4 text-xl font-semibold'>
@@ -17,7 +24,12 @@ const Navbar = () => {
           <Link to="/signup" className='hover:text-slate-600'>Signup</Link>
         </div>
         <div className='hidden md:flex ml-auto'>
-          <button className='p-1 py-1.5 px-3 bg-blue-500 rounded text-white hover:bg-blue-600'>Signout</button>
+          <button 
+          className='p-1 py-1.5 px-3 bg-blue-500 rounded text-white hover:bg-blue-600'
+          onClick={() => dispatch(logout())}
+          >
+            {userFirstname ? `Signout ${userEmail}` : 'Signin'}
+          </button>
         </div>
         <div className='md:hidden'>
           <button onClick={() => setIsOpen(!isOpen)} className='focus:outline-none'>

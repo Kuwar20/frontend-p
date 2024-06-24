@@ -12,7 +12,7 @@ const Signup = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const loading = useSelector((state) => state.userAuth);
+  const loading = useSelector((state) => state.app);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,8 +77,7 @@ const Signup = () => {
         <button
           type="submit"
           className="w-full py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-          disabled={loading}
-        >{loading ? 'Loading...' : "Submit"}</button>
+        >Submit</button>
         <Toaster />
         <div className='flex justify-center'>
           <Link to="/login" className="text-center underline mt-4 w-full max-w-md md:w-3/4 lg:w-1/2 hover:text-green-500">Already have an account? Login</Link>

@@ -1,7 +1,7 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-hot-toast';
 
-export const loginUser = createAsyncThunk('auth/loginUser', async ({ email, password }, { rejectWithValue }) => {
+export const loginUser = createAsyncThunk('userAuth/loginUser', async ({ email, password }, { rejectWithValue }) => {
     try {
         const response = await fetch('http://localhost:3000/api/user/login', {
             method: 'POST',
@@ -24,7 +24,7 @@ export const loginUser = createAsyncThunk('auth/loginUser', async ({ email, pass
     }
 });
 
-export const signupUser = createAsyncThunk('auth/signupUser', async ({ firstname, lastname, email, password }, { rejectWithValue }) => {
+export const signupUser = createAsyncThunk('userAuth/signupUser', async ({ firstname, lastname, email, password }, { rejectWithValue }) => {
     try {
         const response = await fetch('http://localhost:3000/api/user/signup', {
             method: 'POST',
@@ -58,6 +58,7 @@ export const userAuth = createSlice({
             state.user = null;
             localStorage.removeItem('email');
             localStorage.removeItem('token');
+            window.location.reload();
         },
     },
     extraReducers: (builder) => {
