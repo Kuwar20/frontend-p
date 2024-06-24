@@ -52,4 +52,22 @@ router.post('/login', async (req, res) => {
     }
 });
 
+router.delete('/delete', async (req, res) => {
+    const { email } = req.body;
+    if(!email){
+        return res.status(400).json({ message: 'Email is required' });
+    }
+    try {
+        const existingUser = await User.findOne({ email });
+        if(!existingUser){
+            return res.status(400).json({ message: 'User not found' });
+        }
+        await User.deleteOne({ email });
+        return res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 export default router;
