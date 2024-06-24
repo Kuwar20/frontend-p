@@ -1,6 +1,7 @@
 import express from "express";
 const router = express.Router();
 import User from "../models/users.js";
+import bcrypt from "bcryptjs";
 
 router.post('/signup', async (req, res) => {
     const { firstname,lastname, email, password } = req.body;
@@ -16,7 +17,8 @@ router.post('/signup', async (req, res) => {
         if(existingUser){
             return res.status(400).json({ message: 'User already exists' });
         }
-        const newUser = new User({ firstname, lastname, email, password });
+        const hashedPassword = await bcrypt.hash(password, 12);
+        const newUser = new User({ firstname, lastname, email, password:hashedPassword });
         await newUser.save();
         return res.status(201).json({ message: 'User created successfully' });
     } catch (error) {
@@ -33,10 +35,11 @@ router.post('/login', async (req, res) => {
     try {
         const existingUser = await User.findOne({ email });
         if(!existingUser){
-            return res.status(400).json({ message: 'Invalid credentials' });
+            return res.status(400).json({ message: 'Invalid credentials1' });
         }
-        if(password !== existingUser.password){
-            return res.status(400).json({ message: 'Invalid credentials' });
+        const isPasswordMatch = await bcrypt.compare(password, existingUser.password);
+        if(!isPasswordMatch){
+            return res.status(400).json({ message: 'Invalid credentials2' });
         }
         return res.status(200).json({ message: 'Login successful' });
     } catch (error) {
