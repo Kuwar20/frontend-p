@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
-
-const notify = () => toast.success('Form Filled Successfully!')
-const notifyError = () => toast.error('All Fields are required')
-const notifyPassword = () => toast.error('Password must be at least 6 characters long')
+import { signupUser } from '../features/userDataSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Signup = () => {
   const [firstName, setFirstName] = useState('');
@@ -12,32 +10,24 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const loading = useSelector((state) => state.userAuth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!firstName || !lastName || !email || !password) {
-      notifyError();
+      toast.error('All Fields are required');
       return;
     }
     if (password.length < 6) {
-      notifyPassword();
+      toast.error('Password must be at least 6 characters');
       return;
     }
-    try {
-      const response = await fetch(`http://localhost:3000/api/user/signup`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstname: firstName, lastname: lastName, email, password }),
-      });
-      const data = await response.json();
-      notify();
-      navigate('/login');
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-      notifyError();
-    }
+    dispatch(signupUser({ firstname: firstName, lastname: lastName, email, password }))
+      .unwrap()
+      .then(() => navigate('/login'))
+      .catch(() => { });
   };
 
   return (
@@ -84,7 +74,11 @@ const Signup = () => {
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
-        <button type="submit" className="w-full py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Submit</button>
+        <button
+          type="submit"
+          className="w-full py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          disabled={loading}
+        >{loading ? 'Loading...' : "Submit"}</button>
         <Toaster />
         <div className='flex justify-center'>
           <Link to="/login" className="text-center underline mt-4 w-full max-w-md md:w-3/4 lg:w-1/2 hover:text-green-500">Already have an account? Login</Link>
