@@ -1,21 +1,43 @@
 import React, { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 
-const notify = () => toast.success('Form Filled Successfully!')
+const notify = () => toast.success('Login Successfully!')
 const notifyError = () => toast.error('All Fields are required')
+const notifyErrorPassword = () => toast.error('Password must be at least 6 characters')
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
+
     if (!email || !password) {
       notifyError();
       return;
+    }
+    if(password.length < 6) {
+      notifyErrorPassword();
+      return;
+    }
+    try {
+      const response = await fetch(`http://localhost:3000/api/user/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json();
+      console.log(data);
+      notify();
+      navigate('/');
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('email', email);
+    } catch (error) {
+      console.log(error);
+      notifyError();
     }
     notify();
   }
