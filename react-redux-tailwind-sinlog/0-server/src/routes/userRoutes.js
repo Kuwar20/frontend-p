@@ -25,6 +25,24 @@ router.post('/signup', async (req, res) => {
     }
 });
 
-
+router.post('/login', async (req, res) => {
+    let { email, password } = req.body;
+    if(!email || !password){
+        return res.status(400).json({ message: 'All fields are required' });
+    }
+    try {
+        const existingUser = await User.findOne({ email });
+        if(!existingUser){
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
+        if(password !== existingUser.password){
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
+        return res.status(200).json({ message: 'Login successful' });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+});
 
 export default router;
