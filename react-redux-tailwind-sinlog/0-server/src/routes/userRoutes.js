@@ -2,6 +2,9 @@ import express from "express";
 const router = express.Router();
 import User from "../models/users.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
+const JWT_SECRET= 'secret';
 
 router.post('/signup', async (req, res) => {
     const { firstname,lastname, email, password } = req.body;
@@ -41,7 +44,8 @@ router.post('/login', async (req, res) => {
         if(!isPasswordMatch){
             return res.status(400).json({ message: 'Invalid credentials2' });
         }
-        return res.status(200).json({ message: 'Login successful' });
+        const token = jwt.sign({ email: existingUser.email}, JWT_SECRET, { expiresIn: '1h' });
+        return res.status(200).json({ message: 'Login successful', token });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: 'Internal server error' });
