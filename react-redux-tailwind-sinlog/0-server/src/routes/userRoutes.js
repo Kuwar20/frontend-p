@@ -34,6 +34,8 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
     let { email, password } = req.body;
     if (!email || !password) {
+        email = req.body.email;
+        password = req.body.password;
         return res.status(400).json({ message: 'All fields are required' });
     }
     try {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const notify = () => toast.success('Login Successfully!')
 const notifyError = () => toast.error('All Fields are required')
@@ -12,14 +12,14 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
       notifyError();
       return;
     }
-    if(password.length < 6) {
+    if (password.length < 6) {
       notifyErrorPassword();
       return;
     }
@@ -30,16 +30,19 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
-      console.log(data);
-      notify();
-      navigate('/');
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('email', email);
+      if (response.ok) {
+        notify();
+        navigate('/');
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('email', email);
+        console.log(data);
+      }else{
+        toast.error(data.message); // // the backend sends an 'message' field
+      }
     } catch (error) {
       console.log(error);
       notifyError();
     }
-    notify();
   }
 
   return (
