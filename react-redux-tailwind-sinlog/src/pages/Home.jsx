@@ -25,7 +25,7 @@ const Home = () => {
   //   }
   // }
   const user  = useSelector((state) => state.app.user?.user);
-
+  // we have "store" from app and "user" from initialstate in userAuth slice
   return (
     <div className='flex flex-col justify-center items-center h-[80vh] bg-slate-500'>
       <div className='mb-4'>

@@ -106,12 +106,26 @@ const Login = () => {
       return;
     }
 
-    dispatch(loginUser({ email, password }))
-      .unwrap()
-      .then(() => {
-        navigate('/');
-      })
-      .catch(() => { });
+    // dispatch(loginUser({ email, password }))
+    //   .unwrap()
+    //   .then(() => {
+    //     navigate('/');
+    //   })
+    //   .catch(() => { });
+    
+    toast.promise(
+      dispatch(loginUser({ email, password }))
+        .unwrap()
+        .then(() => {
+          navigate('/');
+        })
+        .catch(() => {}),
+      {
+        loading: 'Logging in...',
+        success: <b>Login Successful!</b>,
+        error: <b>Could not login.</b>,
+      }
+    );
 
     try {
       const response = await fetch(`http://localhost:3000/api/user/login`, {
@@ -121,7 +135,6 @@ const Login = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        notify();
         navigate('/');
         localStorage.setItem('token', data.token);
         localStorage.setItem('email', email);
@@ -131,7 +144,7 @@ const Login = () => {
       }
     } catch (error) {
       console.log(error);
-      notifyError();
+      toast.error( 'All Fields are required')
     }
   }
 
