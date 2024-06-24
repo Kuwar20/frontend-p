@@ -24,10 +24,16 @@ const Signup = () => {
       toast.error('Password must be at least 6 characters');
       return;
     }
+    toast.promise(
     dispatch(signupUser({ firstname: firstName, lastname: lastName, email, password }))
       .unwrap()
       .then(() => navigate('/login'))
-      .catch(() => { });
+      .catch(() => { }),
+    { 
+      loading: 'Signing up...',
+      success: <b>Signup Successful!</b>,
+      error: <b>Could not signup.</b>,
+    });
   };
 
   return (
