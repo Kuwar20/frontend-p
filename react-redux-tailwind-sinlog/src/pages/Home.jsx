@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Home = () => {
   // this is the data in redux store
@@ -26,7 +26,23 @@ const Home = () => {
   // }
   const user  = useSelector((state) => state.app.user?.user);
   // we have "store" from app and "user" from initialstate in userAuth slice
+  
+  // to make it persistant logout from all tabs
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    const handleStorageChange = (event) => {
+      if (event.key === 'token' && !event.newValue) {
+        window.location.reload();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, [dispatch]);
   return (
     <div className='flex flex-col justify-center items-center h-[80vh] bg-slate-500'>
       <div className='mb-4'>
