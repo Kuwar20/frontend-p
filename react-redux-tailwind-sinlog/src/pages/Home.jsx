@@ -73,6 +73,7 @@ const Home = () => {
         <button 
           className='bg-white p-2 rounded-md'
           onClick={handleDeleteUser}
+          hidden={!user}
           >Delete User</button>
           <Toaster />
       </div>
