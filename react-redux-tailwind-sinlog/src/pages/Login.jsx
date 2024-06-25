@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const[isSubmitted, setIsSubmitted] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,6 +45,7 @@ const Login = () => {
       await dispatch(loginUser({ email, password })).unwrap();
       toast.dismiss();
       toast.success('Login Successful!');
+      setIsSubmitted(true);
       navigate('/');
     } catch (error) {
       toast.dismiss();
@@ -60,6 +62,7 @@ const Login = () => {
           <input type="email"
             placeholder='Email'
             value={email}
+            disabled={isSubmitted}
             onChange={(e) => setEmail(e.target.value)}
             className='w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
           />
@@ -69,6 +72,7 @@ const Login = () => {
           <input type="password"
             placeholder='Password'
             value={password}
+            disabled={isSubmitted}
             onChange={(e) => setPassword(e.target.value)}
             className='w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
           />
@@ -78,6 +82,7 @@ const Login = () => {
           type="submit"
           className=' mb-4 mt-4 w-full bg-green-600 py-3 rounded-md hover:bg-green-700 font-bold text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'
           disabled={loading}
+          hidden={isSubmitted}
         >{loading?'Loading...':'Submit'}</button>
         <Toaster />
         <div className='flex justify-center'>
