@@ -16,7 +16,7 @@ const Login = () => {
     e.preventDefault();
 
     if (!email || !password) {
-      toast.error('All Fields are required');
+      toast.error('All Fields are required1');
       return;
     }
     if (password.length < 6) {
@@ -24,44 +24,30 @@ const Login = () => {
       return;
     }
 
-    // dispatch(loginUser({ email, password }))
-    //   .unwrap()
-    //   .then(() => {
-    //     navigate('/');
-    //   })
-    //   .catch(() => { });
-    toast.promise(
-      dispatch(loginUser({ email, password }))
-        .unwrap()
-        .then(() => {
-          navigate('/');
-        })
-        .catch(() => {}),
-      {
-        loading: 'Logging in...',
-        success: <b>Login Successful!</b>,
-        error: <b>Could not login.</b>,
-      }
-    );
+    // this is not working
+    // toast.promise(
+    //   dispatch(loginUser({ email, password }))
+    //     .unwrap()
+    //     .then(() => {
+    //       navigate('/');
+    //     })
+    //     .catch(() => {}),
+    //   {
+    //     loading: 'Logging in...',
+    //     success: <b>Login Successful!</b>,
+    //     error: <b>Could not login.</b>,
+    //   }
+    // );
 
     try {
-      const response = await fetch(`http://localhost:3000/api/user/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        navigate('/');
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('email', email);
-        console.log(data);
-      } else {
-        toast.error(data.message); // // the backend sends an 'message' field
-      }
+      toast.loading('Logging in...');
+      await dispatch(loginUser({ email, password })).unwrap();
+      toast.dismiss();
+      toast.success('Login Successful!');
+      navigate('/');
     } catch (error) {
-      console.log(error);
-      toast.error( 'All Fields are required')
+      toast.dismiss();
+      toast.error(error.message || 'Could not login.');
     }
   }
 
