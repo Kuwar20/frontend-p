@@ -45,6 +45,30 @@ export const signupUser = createAsyncThunk('userAuth/signupUser', async (data, {
     }
 });
 
+export const deleteUser = createAsyncThunk('userAuth/deleteUser', async (data, { rejectWithValue }) => {
+    try {
+        const response = await fetch('http://localhost:3000/api/user/delete', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' ,
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(data),
+        });
+        console.log(data);
+        const Responsedata = await response.json();
+        console.log(Responsedata);
+        if (response.ok) {
+            toast.success('User Deleted Successfully!');
+            return Responsedata;
+        } else {
+            toast.error(Responsedata.message);
+            return rejectWithValue(Responsedata.message);
+        }
+    } catch (error) {
+        toast.error('An error occurred');
+        return rejectWithValue(error.message);
+    }
+});
 
 export const userAuth = createSlice({
     name: 'userAuth',
@@ -82,6 +106,19 @@ export const userAuth = createSlice({
                 state.loading = false;
             })
             .addCase(signupUser.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(deleteUser.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(deleteUser.fulfilled, (state, action) => {
+                state.loading = false;
+                // so that when we delete user, we should logout
+                state.user = null;
+            })
+            .addCase(deleteUser.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });
