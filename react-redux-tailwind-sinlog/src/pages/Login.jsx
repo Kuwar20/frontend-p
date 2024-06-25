@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from '../features/userDataSlice';
@@ -10,7 +10,7 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const loading = useSelector((state) => state.app);
+  const loading = useSelector((state) => state.app.loading);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +30,6 @@ const Login = () => {
     //     navigate('/');
     //   })
     //   .catch(() => { });
-
     toast.promise(
       dispatch(loginUser({ email, password }))
         .unwrap()
@@ -92,7 +91,8 @@ const Login = () => {
         <button
           type="submit"
           className=' mb-4 mt-4 w-full bg-green-600 py-3 rounded-md hover:bg-green-700 font-bold text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'
-        >Submit</button>
+          disabled={loading}
+        >{loading?'Loading...':'Submit'}</button>
         <Toaster />
         <div className='flex justify-center'>
           <Link to="/signup" className='text-center underline mt-4 w-full max-w-md md:w-3/4 lg:w-1/2 hover:text-blue-500'>Don't have an account? Register</Link>
