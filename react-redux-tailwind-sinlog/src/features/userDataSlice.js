@@ -24,20 +24,20 @@ export const loginUser = createAsyncThunk('userAuth/loginUser', async ({ email, 
     }
 });
 
-export const signupUser = createAsyncThunk('userAuth/signupUser', async ({ firstname, lastname, email, password }, { rejectWithValue }) => {
+export const signupUser = createAsyncThunk('userAuth/signupUser', async (data, { rejectWithValue }) => {
     try {
         const response = await fetch('http://localhost:3000/api/user/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ firstname, lastname, email, password }),
+            body: JSON.stringify(data),
         });
-        const data = await response.json();
+        const Responsedata = await response.json();
         if (response.ok) {
             toast.success('Signup Successfully!');
-            return data;
+            return Responsedata;
         } else {
-            toast.error(data.message);
-            return rejectWithValue(data.message);
+            toast.error(Responsedata.message);
+            return rejectWithValue(Responsedata.message);
         }
     } catch (error) {
         toast.error('An error occurred');
@@ -88,6 +88,6 @@ export const userAuth = createSlice({
     }
 })
 
-export const { logout } = userAuth.actions;
-
 export default userAuth.reducer;
+
+export const { logout } = userAuth.actions;

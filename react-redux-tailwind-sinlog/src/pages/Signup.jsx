@@ -24,8 +24,9 @@ const Signup = () => {
       toast.error('Password must be at least 6 characters');
       return;
     }
+    const user= { firstname: firstName, lastname: lastName, email, password }
     toast.promise(
-    dispatch(signupUser({ firstname: firstName, lastname: lastName, email, password }))
+    dispatch(signupUser(user))
       .unwrap()
       .then(() => navigate('/login'))
       .catch(() => { }),
