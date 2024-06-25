@@ -1,5 +1,5 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast'; 
 
 export const loginUser = createAsyncThunk('userAuth/loginUser', async ({ email, password }, { rejectWithValue }) => {
     try {
